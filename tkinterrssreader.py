@@ -27,6 +27,20 @@ HLabel3.grid(row=0, column=2)
 HLabel4.grid(row=0, column=3)
 
 
+def main():
+    choice = raw_input("Press 1 to refresh RSS feed, 2 to add a new feed or 3 to quit: ")
+    if choice == "1":
+        showFeed()
+        main()
+    if choice == "2":
+        addNewFeed()
+        main()
+    if choice == "3":
+        sys.exit()
+    else:
+        "Please enter a valid number."
+
+
 def addNewFeed():
     newFeed = raw_input("Please enter an RSS feed you'd like added: ")
     feeds.append(newFeed)
@@ -38,13 +52,13 @@ def addNewFeed():
             theTuple = (parsedTime, d.entries[j].title, displayTime, d.entries[j].link)
             fullFeeds.append(theTuple)
     sortList()
-    addEntries()
+    showFeed()
 
 
 def sortList():
     fullFeeds.sort()
 
-def addEntries():
+def showFeed():
     for i in range(0, len(fullFeeds)):
         myLabel1 = Label(myContainer, text = fullFeeds[i][1])
         Title.append(myLabel1)
@@ -60,6 +74,5 @@ def addEntries():
         Link[i].grid(row=i+1, column=2, sticky=W)
         TimeStamp[i].grid(row=i+1, column=3, sticky=W)
 
-
-addNewFeed()
+main()
 root.mainloop()
